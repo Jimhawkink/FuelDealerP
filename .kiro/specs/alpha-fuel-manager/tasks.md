@@ -75,7 +75,7 @@
 
 ## 7. Fuel Sales POS Module
 
-- [ ] 7.1 Create app/(dashboard)/sales/page.tsx with new sale form
+- [x] 7.1 Create app/(dashboard)/sales/page.tsx with new sale form
 - [ ] 7.2 Build customer selector (searchable dropdown from fuel_customers WHERE is_active=true)
 - [ ] 7.3 Build fuel type selector with current price auto-populated
 - [ ] 7.4 Build quantity input with real-time total amount calculation (quantity x unit_price)
@@ -83,19 +83,19 @@
 - [ ] 7.6 For Pay Now: show payment channel selector (Cash, M-Pesa STK Push, etc.)
 - [ ] 7.7 Implement credit limit enforcement: show error if credit sale would exceed limit
 - [ ] 7.8 Implement inventory check: show error if quantity exceeds available stock
-- [ ] 7.9 Create POST /api/sales route that atomically inserts fuel_sales + updates fuel_inventory + inserts fuel_inventory_log
+- [x] 7.9 Create POST /api/sales route that atomically inserts fuel_sales + updates fuel_inventory + inserts fuel_inventory_log
 - [ ] 7.10 For credit sales: atomically update fuel_customers.outstanding_balance in same transaction
 - [ ] 7.11 For Pay Now cash sales: atomically insert fuel_payments and reconcile to customer
 - [ ] 7.12 For Pay Now M-Pesa STK: trigger STK Push and link to sale
-- [ ] 7.13 Create app/(dashboard)/sales/history/page.tsx with filterable sales table (TanStack Table, server-side pagination)
-- [ ] 7.14 Build shift management: open shift button, close shift button, active shift indicator in topbar
-- [ ] 7.15 Create app/(dashboard)/shifts/page.tsx with shift list and summary per shift
+- [x] 7.13 Create app/(dashboard)/sales/history/page.tsx with filterable sales table (TanStack Table, server-side pagination)
+- [x] 7.14 Build shift management: open shift button, close shift button, active shift indicator in topbar
+- [x] 7.15 Create app/(dashboard)/shifts/page.tsx with shift list and summary per shift
 
 ## 8. Customer Account Management
 
-- [ ] 8.1 Create app/(dashboard)/customers/page.tsx with searchable customer list (TanStack Table)
+- [x] 8.1 Create app/(dashboard)/customers/page.tsx with searchable customer list (TanStack Table)
 - [ ] 8.2 Show outstanding balance, credit limit, and credit utilisation % per customer in list
-- [ ] 8.3 Create app/(dashboard)/customers/new/page.tsx with create customer form (dealer_admin only)
+- [x] 8.3 Create app/(dashboard)/customers/new/page.tsx with create customer form (dealer_admin only)
 - [ ] 8.4 Create app/(dashboard)/customers/[id]/page.tsx with customer detail view
 - [ ] 8.5 Build customer statement tab: chronological list of all sales and payments with running balance
 - [ ] 8.6 Build debt aging tab: outstanding balance broken into 0-30, 31-60, 61-90, 90+ day buckets
@@ -139,11 +139,11 @@
   - [ ] 10.1.7 No match / ambiguous: leave status=pending
   - [ ] 10.1.8 On successful reconciliation: broadcast Supabase Realtime event + trigger send-sms
 - [ ] 10.2 Create app/(dashboard)/payments/reconcile/page.tsx (Pending Reconciliation Queue)
-  - [ ] 10.2.1 List all fuel_payments WHERE status=pending with amount, channel, reference, narration, received timestamp
-  - [ ] 10.2.2 Supabase Realtime subscription to update queue live on new pending payments
-  - [ ] 10.2.3 Manual assign: customer selector dropdown + confirm button
-  - [ ] 10.2.4 POST /api/payments/reconcile route that calls reconcile-payment with manual customer_id override
-- [ ] 10.3 Create app/(dashboard)/payments/page.tsx with all payments list (filterable by status, channel, date)
+  - [x] 10.2.1 List all fuel_payments WHERE status=pending with amount, channel, reference, narration, received timestamp
+  - [x] 10.2.2 Supabase Realtime subscription to update queue live on new pending payments
+  - [x] 10.2.3 Manual assign: customer selector dropdown + confirm button
+  - [x] 10.2.4 POST /api/payments/reconcile route that calls reconcile-payment with manual customer_id override
+- [x] 10.3 Create app/(dashboard)/payments/page.tsx with all payments list (filterable by status, channel, date)
 
 ## 11. Bank Statement Import
 
@@ -166,9 +166,9 @@
 ## 12. Fuel Inventory Management
 
 - [ ] 12.1 Create app/(dashboard)/inventory/page.tsx with stock level cards per fuel type
-  - [ ] 12.1.1 Show current stock in litres, low-stock threshold, and visual progress bar
+  - [x] 12.1.1 Show current stock in litres, low-stock threshold, and visual progress bar
   - [ ] 12.1.2 Supabase Realtime subscription on fuel_inventory UPDATE for live stock updates
-  - [ ] 12.1.3 Show low-stock warning badge when stock < threshold
+  - [x] 12.1.3 Show low-stock warning badge when stock < threshold
 - [ ] 12.2 Create app/(dashboard)/inventory/deliveries/page.tsx (dealer_admin only)
   - [ ] 12.2.1 Form: fuel type, quantity delivered, delivery date, supplier reference
   - [ ] 12.2.2 POST /api/inventory/delivery route: atomically UPDATE fuel_inventory + INSERT fuel_inventory_log
@@ -176,7 +176,7 @@
 
 ## 13. Reports & Analytics
 
-- [ ] 13.1 Create app/(dashboard)/reports/page.tsx as reports hub with links to all report types
+- [x] 13.1 Create app/(dashboard)/reports/page.tsx as reports hub with links to all report types
 - [ ] 13.2 Create app/(dashboard)/reports/sales/page.tsx
   - [ ] 13.2.1 Date range picker (daily/weekly/monthly presets)
   - [ ] 13.2.2 Table: litres sold and KES collected per fuel type per period
@@ -215,7 +215,7 @@
 
 ## 15. Settings Module (dealer_admin only)
 
-- [ ] 15.1 Create app/(dashboard)/settings/page.tsx as settings hub
+- [x] 15.1 Create app/(dashboard)/settings/page.tsx as settings hub
 - [ ] 15.2 Create app/(dashboard)/settings/mpesa/page.tsx
   - [ ] 15.2.1 Form: Consumer Key, Consumer Secret, Paybill/Till number, Passkey, callback URL
   - [ ] 15.2.2 Save credentials to Supabase Vault via POST /api/settings/mpesa

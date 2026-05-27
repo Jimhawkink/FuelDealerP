@@ -1,140 +1,44 @@
 "use client"
-
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { AlertCircle, CheckCircle2, CreditCard, Loader2 } from "lucide-react"
-
+import { Loader2, CheckCircle } from "lucide-react"
 export default function MpesaSettingsPage() {
-  const [form, setForm] = useState({
-    consumer_key: "",
-    consumer_secret: "",
-    paybill_number: "",
-    passkey: "",
-    callback_url: "",
-    environment: "sandbox",
-  })
+  const [form, setForm] = useState({ consumer_key:"", consumer_secret:"", paybill_number:"", passkey:"", callback_url:"" })
   const [loading, setLoading] = useState(false)
-  const [testLoading, setTestLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
-
-  const handleSave = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError(null)
-    setSuccess(null)
-    try {
-      const res = await fetch("/api/settings/mpesa", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      })
-      const data = await res.json()
-      if (!res.ok) setError(data.error ?? "Failed to save")
-      else setSuccess("M-Pesa settings saved successfully")
-    } catch { setError("Network error") }
-    finally { setLoading(false) }
+  const [saved, setSaved] = useState(false)
+  const [error, setError] = useState("")
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); setLoading(true); setError("")
+    const res = await fetch("/api/settings/mpesa",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(form)})
+    const data = await res.json()
+    if(!res.ok){setError(data.error);setLoading(false);return}
+    setSaved(true); setLoading(false)
   }
-
-  const handleTestConnection = async () => {
-    setTestLoading(true)
-    setError(null)
-    try {
-      const baseUrl = form.environment === "production"
-        ? "https://api.safaricom.co.ke"
-        : "https://sandbox.safaricom.co.ke"
-      const credentials = btoa(`${form.consumer_key}:${form.consumer_secret}`)
-      const res = await fetch(`${baseUrl}/oauth/v1/generate?grant_type=client_credentials`, {
-        headers: { Authorization: `Basic ${credentials}` },
-      })
-      if (res.ok) setSuccess("Connection successful! OAuth token obtained.")
-      else setError(`Connection failed: ${res.status} ${res.statusText}`)
-    } catch { setError("Connection test failed. Check credentials.") }
-    finally { setTestLoading(false) }
-  }
-
+  const fields = [
+    {key:"consumer_key",label:"Consumer Key",type:"text"},
+    {key:"consumer_secret",label:"Consumer Secret",type:"password"},
+    {key:"paybill_number",label:"Paybill / Till Number",type:"text"},
+    {key:"passkey",label:"Passkey",type:"password"},
+    {key:"callback_url",label:"Callback URL",type:"url"},
+  ]
   return (
     <div className="max-w-lg mx-auto space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900">M-Pesa Configuration</h1>
-        <p className="text-slate-500 text-sm mt-1">Daraja API credentials</p>
+      <h1 className="text-2xl font-bold text-slate-900">M-Pesa Configuration</h1>
+      <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-800">Credentials are stored securely in Supabase Vault and never exposed to the browser.</div>
+      <div className="bg-white rounded-xl border border-slate-200 p-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {fields.map(f=>(
+            <div key={f.key}>
+              <label className="block text-sm font-medium text-slate-700 mb-1">{f.label}</label>
+              <input type={f.type} value={(form as any)[f.key]} onChange={e=>setForm(p=>({...p,[f.key]:e.target.value}))} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-amber-400 outline-none" placeholder={f.type==="password"?"":""}/>
+            </div>
+          ))}
+          {error&&<p className="text-red-500 text-sm">{error}</p>}
+          {saved&&<div className="flex items-center gap-2 text-green-600 text-sm"><CheckCircle className="w-4 h-4"/>Saved successfully</div>}
+          <button type="submit" disabled={loading} className="w-full py-3 rounded-xl font-semibold text-white text-sm flex items-center justify-center gap-2" style={{background:"linear-gradient(135deg,#F59E0B,#EA580C)"}}>
+            {loading?<><Loader2 className="w-4 h-4 animate-spin"/>Saving...</>:"Save M-Pesa Config"}
+          </button>
+        </form>
       </div>
-
-      {error && (
-        <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm">
-          <AlertCircle className="w-4 h-4 flex-shrink-0" />
-          {error}
-        </div>
-      )}
-      {success && (
-        <div className="flex items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm">
-          <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
-          {success}
-        </div>
-      )}
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-base">
-            <CreditCard className="w-4 h-4 text-green-500" />
-            Daraja API Settings
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSave} className="space-y-4">
-            <div className="space-y-1.5">
-              <Label>Environment</Label>
-              <Select value={form.environment} onValueChange={v => setForm(f => ({ ...f, environment: v }))}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="sandbox">Sandbox (Testing)</SelectItem>
-                  <SelectItem value="production">Production</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-1.5">
-              <Label>Consumer Key</Label>
-              <Input type="password" value={form.consumer_key} onChange={e => setForm(f => ({ ...f, consumer_key: e.target.value }))} placeholder="••••••••" required />
-            </div>
-
-            <div className="space-y-1.5">
-              <Label>Consumer Secret</Label>
-              <Input type="password" value={form.consumer_secret} onChange={e => setForm(f => ({ ...f, consumer_secret: e.target.value }))} placeholder="••••••••" required />
-            </div>
-
-            <div className="space-y-1.5">
-              <Label>Paybill / Till Number</Label>
-              <Input value={form.paybill_number} onChange={e => setForm(f => ({ ...f, paybill_number: e.target.value }))} placeholder="174379" required />
-            </div>
-
-            <div className="space-y-1.5">
-              <Label>Passkey</Label>
-              <Input type="password" value={form.passkey} onChange={e => setForm(f => ({ ...f, passkey: e.target.value }))} placeholder="••••••••" required />
-            </div>
-
-            <div className="space-y-1.5">
-              <Label>Callback URL (optional)</Label>
-              <Input type="url" value={form.callback_url} onChange={e => setForm(f => ({ ...f, callback_url: e.target.value }))} placeholder="https://your-domain.com/api/mpesa/callback" />
-            </div>
-
-            <div className="flex gap-3 pt-2">
-              <Button type="button" variant="outline" onClick={handleTestConnection} disabled={testLoading || !form.consumer_key || !form.consumer_secret} className="flex-1">
-                {testLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Test Connection"}
-              </Button>
-              <Button type="submit" disabled={loading} className="flex-1 bg-amber-500 hover:bg-amber-600 text-white">
-                {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Saving...</> : "Save Settings"}
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
     </div>
   )
 }
