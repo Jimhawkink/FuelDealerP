@@ -55,7 +55,7 @@ export function PaymentChannelChart({ data }: PaymentChannelChartProps) {
           <XAxis dataKey="name" tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
           <YAxis tick={{ fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => `${(v / 1000).toFixed(0)}K`} />
           <Tooltip
-            formatter={(value: number) => [`KES ${value.toLocaleString()}`, "Amount"]}
+            formatter={(value) => [`KES ${Number(value).toLocaleString()}`, "Amount"]}
             contentStyle={{ borderRadius: "8px", border: "1px solid #E2E8F0", fontSize: "12px" }}
           />
           <Bar dataKey="amount" radius={[4, 4, 0, 0]}>
