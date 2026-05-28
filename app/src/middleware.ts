@@ -1,44 +1,36 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { updateSession } from "@/lib/supabase/middleware"
 
-// These are the actual URL paths served by the (dashboard) route group.
-// Because (dashboard) is a route group, its folder name is NOT part of the URL.
-// e.g. src/app/(dashboard)/page.tsx      → /
-//      src/app/(dashboard)/customers/... → /customers
-const PROTECTED_PATHS = [
-  "/",
-  "/customers",
-  "/inventory",
-  "/payments",
-  "/reports",
+const AUTH_PAGES = ["/login", "/reset-password", "/update-password"]
+
+// All routes served by the (dashboard) route group (no /dashboard prefix)
+const PROTECTED_PREFIXES = [
   "/sales",
-  "/settings",
   "/shifts",
+  "/customers",
+  "/payments",
+  "/inventory",
+  "/reports",
+  "/settings",
 ]
 
 export async function middleware(request: NextRequest) {
   const { supabaseResponse, user } = await updateSession(request)
   const { pathname } = request.nextUrl
 
-  // If user is logged in and tries to access auth pages, redirect to app root
-  if (
-    pathname.startsWith("/login") ||
-    pathname.startsWith("/reset-password") ||
-    pathname.startsWith("/update-password")
-  ) {
-    if (user) {
-      const url = request.nextUrl.clone()
-      url.pathname = "/"
-      return NextResponse.redirect(url)
-    }
-    return supabaseResponse
+  const isAuthPage = AUTH_PAGES.some((p) => pathname.startsWith(p))
+  const isProtected =
+    pathname === "/" ||
+    PROTECTED_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"))
+
+  // Authenticated user on an auth page → send to app root
+  if (isAuthPage && user) {
+    const url = request.nextUrl.clone()
+    url.pathname = "/"
+    return NextResponse.redirect(url)
   }
 
-  // Protect all dashboard routes - redirect to login if not authenticated
-  const isProtected = PROTECTED_PATHS.some(
-    (p) => pathname === p || (p !== "/" && pathname.startsWith(p + "/"))
-  )
-
+  // Unauthenticated user on a protected page → send to login
   if (isProtected && !user) {
     const url = request.nextUrl.clone()
     url.pathname = "/login"
