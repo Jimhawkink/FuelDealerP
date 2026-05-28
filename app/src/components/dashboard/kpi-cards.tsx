@@ -109,7 +109,7 @@ export function KpiCards({ initial, role, userId }: KpiCardsProps) {
       color: kpi.pendingCount > 0 ? "bg-orange-50 text-orange-600 border-orange-100" : "bg-slate-50 text-slate-500 border-slate-100",
       iconBg: kpi.pendingCount > 0 ? "bg-orange-100" : "bg-slate-100",
       hidden: role === "attendant",
-      href: "/dashboard/payments/reconcile",
+      href: "/payments/reconcile",
     },
   ]
 

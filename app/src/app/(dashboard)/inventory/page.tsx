@@ -14,7 +14,7 @@ export default function InventoryPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-slate-900">Fuel Inventory</h1>
-        <a href="/dashboard/inventory/deliveries" className="flex items-center gap-2 px-4 py-2 text-white rounded-lg text-sm font-medium" style={{background:"linear-gradient(135deg,#F59E0B,#EA580C)"}}>Record Delivery</a>
+        <a href="/inventory/deliveries" className="flex items-center gap-2 px-4 py-2 text-white rounded-lg text-sm font-medium" style={{background:"linear-gradient(135deg,#F59E0B,#EA580C)"}}>Record Delivery</a>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {items.map((item:any)=>{

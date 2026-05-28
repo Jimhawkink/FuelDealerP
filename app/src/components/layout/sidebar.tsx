@@ -19,14 +19,14 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: "Dashboard", href: "/dashboard", icon: <LayoutDashboard className="w-4 h-4" />, roles: ["dealer_admin", "accountant", "attendant"] },
-  { label: "Sales", href: "/dashboard/sales", icon: <ShoppingCart className="w-4 h-4" />, roles: ["dealer_admin", "accountant", "attendant"] },
-  { label: "Shifts", href: "/dashboard/shifts", icon: <Clock className="w-4 h-4" />, roles: ["dealer_admin", "accountant", "attendant"] },
-  { label: "Customers", href: "/dashboard/customers", icon: <Users className="w-4 h-4" />, roles: ["dealer_admin", "accountant"] },
-  { label: "Payments", href: "/dashboard/payments", icon: <CreditCard className="w-4 h-4" />, roles: ["dealer_admin", "accountant"] },
-  { label: "Inventory", href: "/dashboard/inventory", icon: <Package className="w-4 h-4" />, roles: ["dealer_admin", "accountant"] },
-  { label: "Reports", href: "/dashboard/reports", icon: <BarChart3 className="w-4 h-4" />, roles: ["dealer_admin", "accountant"] },
-  { label: "Settings", href: "/dashboard/settings", icon: <Settings className="w-4 h-4" />, roles: ["dealer_admin"] },
+  { label: "Dashboard", href: "/", icon: <LayoutDashboard className="w-4 h-4" />, roles: ["dealer_admin", "accountant", "attendant"] },
+  { label: "Sales", href: "/sales", icon: <ShoppingCart className="w-4 h-4" />, roles: ["dealer_admin", "accountant", "attendant"] },
+  { label: "Shifts", href: "/shifts", icon: <Clock className="w-4 h-4" />, roles: ["dealer_admin", "accountant", "attendant"] },
+  { label: "Customers", href: "/customers", icon: <Users className="w-4 h-4" />, roles: ["dealer_admin", "accountant"] },
+  { label: "Payments", href: "/payments", icon: <CreditCard className="w-4 h-4" />, roles: ["dealer_admin", "accountant"] },
+  { label: "Inventory", href: "/inventory", icon: <Package className="w-4 h-4" />, roles: ["dealer_admin", "accountant"] },
+  { label: "Reports", href: "/reports", icon: <BarChart3 className="w-4 h-4" />, roles: ["dealer_admin", "accountant"] },
+  { label: "Settings", href: "/settings", icon: <Settings className="w-4 h-4" />, roles: ["dealer_admin"] },
 ]
 
 interface SidebarProps {
@@ -76,7 +76,7 @@ export function Sidebar({ role, userName, onClose }: SidebarProps) {
       {/* Nav items */}
       <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
         {visibleItems.map((item) => {
-          const isActive = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href))
+          const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))
           return (
             <Link
               key={item.href}

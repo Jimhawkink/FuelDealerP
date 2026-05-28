@@ -1,11 +1,11 @@
 import Link from "next/link"
-import { Settings, Smartphone, MessageSquare, Fuel, Users, AlertTriangle } from "lucide-react"
+import { Smartphone, MessageSquare, Fuel, Users, AlertTriangle } from "lucide-react"
 const items = [
-  { title:"M-Pesa Config", desc:"Daraja API credentials and C2B setup", href:"/dashboard/settings/mpesa", icon:<Smartphone className="w-6 h-6 text-green-500"/> },
-  { title:"SMS Provider", desc:"Africa's Talking or Twilio configuration", href:"/dashboard/settings/sms", icon:<MessageSquare className="w-6 h-6 text-blue-500"/> },
-  { title:"Fuel Prices", desc:"Set price per litre for each fuel type", href:"/dashboard/settings/fuel-prices", icon:<Fuel className="w-6 h-6 text-amber-500"/> },
-  { title:"User Management", desc:"Create, edit, and deactivate users", href:"/dashboard/settings/users", icon:<Users className="w-6 h-6 text-purple-500"/> },
-  { title:"Stock Thresholds", desc:"Low-stock alert thresholds per fuel type", href:"/dashboard/settings/thresholds", icon:<AlertTriangle className="w-6 h-6 text-red-500"/> },
+  { title:"M-Pesa Config", desc:"Daraja API credentials and C2B setup", href:"/settings/mpesa", icon:<Smartphone className="w-6 h-6 text-green-500"/> },
+  { title:"SMS Provider", desc:"Africa's Talking or Twilio configuration", href:"/settings/sms", icon:<MessageSquare className="w-6 h-6 text-blue-500"/> },
+  { title:"Fuel Prices", desc:"Set price per litre for each fuel type", href:"/settings/fuel-prices", icon:<Fuel className="w-6 h-6 text-amber-500"/> },
+  { title:"User Management", desc:"Create, edit, and deactivate users", href:"/settings/users", icon:<Users className="w-6 h-6 text-purple-500"/> },
+  { title:"Stock Thresholds", desc:"Low-stock alert thresholds per fuel type", href:"/settings/thresholds", icon:<AlertTriangle className="w-6 h-6 text-red-500"/> },
 ]
 export default function SettingsPage() {
   return (

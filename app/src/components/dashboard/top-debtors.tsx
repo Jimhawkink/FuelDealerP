@@ -31,7 +31,7 @@ export async function TopDebtors() {
             ? Math.min((customer.outstanding_balance / customer.credit_limit) * 100, 100)
             : 100
           return (
-            <a key={customer.id} href={`/dashboard/customers/${customer.id}`} className="flex items-center gap-3 px-5 py-3 hover:bg-slate-50 transition-colors">
+            <a key={customer.id} href={`/customers/${customer.id}`} className="flex items-center gap-3 px-5 py-3 hover:bg-slate-50 transition-colors">
               <span className="text-xs font-bold text-slate-400 w-5">{i + 1}</span>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-slate-800 truncate">{customer.full_name}</p>

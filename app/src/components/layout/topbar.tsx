@@ -54,7 +54,7 @@ export function Topbar({ role, userName, pendingCount = 0 }: TopbarProps) {
       <div className="flex items-center gap-3">
         {/* Pending reconciliation bell */}
         {(role === "dealer_admin" || role === "accountant") && (
-          <a href="/dashboard/payments/reconcile" className="relative p-2 rounded-lg hover:bg-slate-100 transition-colors">
+          <a href="/payments/reconcile" className="relative p-2 rounded-lg hover:bg-slate-100 transition-colors">
             <Bell className="w-5 h-5 text-slate-600" />
             {pendingCount > 0 && (
               <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">

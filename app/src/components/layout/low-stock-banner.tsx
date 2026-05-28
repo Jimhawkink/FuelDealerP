@@ -35,7 +35,7 @@ export async function LowStockBanner() {
       <AlertTriangle className="w-4 h-4 text-amber-500 flex-shrink-0" />
       <span>
         <strong>Low stock alert:</strong> {fuelNames}  below threshold.{" "}
-        <a href="/dashboard/inventory/deliveries" className="underline font-medium hover:text-amber-900">
+        <a href="/inventory/deliveries" className="underline font-medium hover:text-amber-900">
           Record delivery
         </a>
       </span>

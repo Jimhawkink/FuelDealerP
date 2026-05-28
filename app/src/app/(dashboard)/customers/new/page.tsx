@@ -12,7 +12,7 @@ export default function NewCustomerPage() {
     const res = await fetch("/api/customers",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...form,credit_limit:parseFloat(form.credit_limit)})})
     const data = await res.json()
     if(!res.ok){setError(data.error);setLoading(false);return}
-    router.push("/dashboard/customers")
+    router.push("/customers")
   }
   return (
     <div className="max-w-lg mx-auto space-y-6">

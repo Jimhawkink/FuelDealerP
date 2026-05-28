@@ -1,11 +1,11 @@
 import Link from "next/link"
 import { BarChart3, CreditCard, Users, Package, Clock } from "lucide-react"
 const reports = [
-  { title:"Sales Report", desc:"Daily, weekly, monthly fuel sales", href:"/dashboard/reports/sales", icon:<BarChart3 className="w-6 h-6 text-amber-500"/> },
-  { title:"Payments Report", desc:"Collections by payment channel", href:"/dashboard/reports/payments", icon:<CreditCard className="w-6 h-6 text-blue-500"/> },
-  { title:"Debt Aging", desc:"Outstanding balances by age", href:"/dashboard/reports/debt-aging", icon:<Users className="w-6 h-6 text-red-500"/> },
-  { title:"Inventory Report", desc:"Stock consumption and deliveries", href:"/dashboard/reports/inventory", icon:<Package className="w-6 h-6 text-green-500"/> },
-  { title:"Shift Summary", desc:"Sales per attendant shift", href:"/dashboard/reports/shifts", icon:<Clock className="w-6 h-6 text-purple-500"/> },
+  { title:"Sales Report", desc:"Daily, weekly, monthly fuel sales", href:"/reports/sales", icon:<BarChart3 className="w-6 h-6 text-amber-500"/> },
+  { title:"Payments Report", desc:"Collections by payment channel", href:"/reports/payments", icon:<CreditCard className="w-6 h-6 text-blue-500"/> },
+  { title:"Debt Aging", desc:"Outstanding balances by age", href:"/reports/debt-aging", icon:<Users className="w-6 h-6 text-red-500"/> },
+  { title:"Inventory Report", desc:"Stock consumption and deliveries", href:"/reports/inventory", icon:<Package className="w-6 h-6 text-green-500"/> },
+  { title:"Shift Summary", desc:"Sales per attendant shift", href:"/reports/shifts", icon:<Clock className="w-6 h-6 text-purple-500"/> },
 ]
 export default function ReportsPage() {
   return (

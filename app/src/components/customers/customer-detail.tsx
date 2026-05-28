@@ -87,7 +87,7 @@ export function CustomerDetail({ customer, statement, aging, role }: Props) {
     setLoading(true)
     try {
       const res = await fetch(`/api/customers/${customer.id}`, { method: "DELETE" })
-      if (res.ok) router.push("/dashboard/customers")
+      if (res.ok) router.push("/customers")
       else { const d = await res.json(); setError(d.error ?? "Failed to deactivate") }
     } catch { setError("Network error") }
     finally { setLoading(false) }
